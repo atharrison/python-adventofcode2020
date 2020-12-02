@@ -9,3 +9,12 @@ class Day01:
                 if int(item1) + int(item2) == 2020:
                     print(f"Solution: {int(item1) * int(item2)}")
                     return
+
+    def solve_part2(self):
+        # brute force
+        for item1 in self.data:
+            for item2 in self.data:
+                for item3 in self.data:
+                    if int(item1) + int(item2) + int(item3) == 2020:
+                        print(f"Solution: {int(item1) * int(item2) * int(item3)}")
+                        return
