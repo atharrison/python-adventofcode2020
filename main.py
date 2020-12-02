@@ -8,7 +8,8 @@ def main():
     data = file_as_list(f"day{day}/day{day}input.txt")
 
     runner = day02.Day02(data)
-    runner.solve_part1()
+    # runner.solve_part1()
+    runner.solve_part2()
 
 
 if __name__ == "__main__":

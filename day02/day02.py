@@ -15,6 +15,26 @@ class Day02:
 
         print(f"Solution: {total}")
 
+    def solve_part2(self):
+        total = 0
+        structured = self.process_raw()
+        for item in structured:
+            password = item[3]
+            idx1 = item[0] - 1
+            idx2 = item[1] - 1
+            try:
+                if password[idx1] == item[2]:
+                    # one match:
+                    if len(password) < idx2 or password[idx2] != item[2]:
+                        total += 1
+                elif len(password) >= idx2 and password[idx2] == item[2]:
+                    total += 1
+
+            except Exception:
+                pass
+
+        print(f"Solution: {total}")
+
     def process_raw(self):
 
         items = []
