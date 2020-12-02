@@ -1,12 +1,14 @@
 from day01 import day01
+from day02 import day02
 from fileutils import file_as_list
 
 
 def main():
-    data = file_as_list("day01/day01input.txt")
+    day = "02"
+    data = file_as_list(f"day{day}/day{day}input.txt")
 
-    runner = day01.Day01(data)
-    runner.solve_part2()
+    runner = day02.Day02(data)
+    runner.solve_part1()
 
 
 if __name__ == "__main__":
