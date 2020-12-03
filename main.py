@@ -5,13 +5,16 @@ from fileutils import file_as_list
 
 
 def main():
-    day = "01"
+    day = "03"
     data = file_as_list(f"day{day}/day{day}input.txt")
 
     runner = day03.Day03(data)
-    runner = day01.Day01(data)
-    # runner.solve_part1()
-    runner.solve_part2_efficient2()
+
+    print("Part 1")
+    runner.solve_part1()
+
+    print("Part 2")
+    runner.solve_part2()
 
 
 if __name__ == "__main__":
