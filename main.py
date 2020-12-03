@@ -11,7 +11,7 @@ def main():
     runner = day03.Day03(data)
     runner = day01.Day01(data)
     # runner.solve_part1()
-    runner.solve_part2_efficient()
+    runner.solve_part2_efficient2()
 
 
 if __name__ == "__main__":
