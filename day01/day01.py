@@ -37,13 +37,19 @@ class Day01:
             num2 = int_data[idx2]
             num3 = int_data[idx3]
             calculations += 1
-            if num1 + num2 + num3 == 2020:
+            sum = num1 + num2 + num3
+            if sum == 2020:
                 print(f"Solution: {num1 * num2 * num3}")
                 print(f"Calculations: {calculations}")
-                # Efficient calcs: Calculations: 601 (plus data.sort())
+                # Efficient calcs: Calculations: 601 (plus data.sort(), sort-only)
+                # Efficient calcs: Calculations: 51 (plus data.sort() and checking for overage)
                 return
             else:
-                idx3 += 1
+                if sum > 2020:
+                    idx3 = input_len
+                else:
+                    idx3 += 1
+
                 if idx3 == input_len:
                     idx2 += 1
                     if idx2 == input_len < 1:
