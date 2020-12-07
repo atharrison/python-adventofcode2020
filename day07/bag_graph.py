@@ -35,10 +35,32 @@ class Bag:
         self.inner_bag_count = {}
 
     def add_inner_bag(self, quantity, color):
-        self.inner_bag_count[color] = quantity
+        print(f"{self.color} adding {quantity}:{color}")
+        self.inner_bag_count[color] = int(quantity)
 
     def containing_colors(self):
         return self.inner_bag_count.keys()
+
+    def holds(self, bag_graph):
+        sum = 0
+        for color, quantity in self.inner_bag_count.items():
+            bag = bag_graph.get_bag(color)
+            print(f"Looking at {bag}...")
+            subcount = bag.holds(bag_graph)
+            if subcount == 0:
+                print(
+                    f"{color} holds no bags. But we({self.color}) hold {quantity} of them."
+                )
+                sum += quantity
+            else:
+                print(
+                    f"{color} holds {subcount} bags, and we({self.color}) hold {quantity} of them."
+                )
+                sum += quantity * subcount
+
+        print(f"{self.color} contains {sum} bags.")
+        # Also include ourselves in sum:
+        return sum + 1
 
     def __str__(self):
         return f"{self.color}: {self.inner_bag_count}"

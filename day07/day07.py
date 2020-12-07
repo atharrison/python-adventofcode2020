@@ -22,7 +22,11 @@ class Day07:
         print(f"Count: {len(valid_colors)}, Valid Colors: {valid_colors}")
 
     def solve_part2(self):
-        pass
+        self.load_input()
+        target_color = "shiny gold"
+        target_bag = self.bag_graph.get_bag(target_color)
+
+        print(f"{target_color} holds {target_bag.holds(self.bag_graph) - 1} bags.")
 
     def load_input(self):
 
@@ -55,4 +59,5 @@ class Day07:
                     color = b[1]
                     bag.add_inner_bag(quantity, color)
 
+            print(f"Added {bag}")
             self.bag_graph.add_bag(bag)

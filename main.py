@@ -12,6 +12,7 @@ def main():
     day = "07"
     data = file_as_list(f"day{day}/day{day}input.txt")
     # data = file_as_list(f"day{day}/day{day}input_sample.txt")
+    # data = file_as_list(f"day{day}/day{day}input_sample2.txt")
 
     runner = day07.Day07(data)
 
