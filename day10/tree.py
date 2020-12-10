@@ -5,6 +5,8 @@ class AdapterTree:
         self.nodelist[self.root.val] = self.root
         self.fill_tree(adapters)
 
+        self.global_count = 0
+
     def __str__(self):
         return f"Tree: {self.root}"
 
@@ -27,14 +29,28 @@ class AdapterTree:
     def traverse_tree(self):
         count = self.node_count_from(self.root, [self.root.val])
         print(f"Traverse count: {count}")
+        print(f"Traverse global_count: {self.global_count}")
 
     def node_count_from(self, node, path):
+        # print(f"node_count_from {node.val}")
+        if len(node.nodes) > 0:
+            for nodeval in node.nodes.keys():
+                child = node.nodes[nodeval]
+                # print(f"Traversing {node.val} -> {child.val} ...")
+                self.node_count_from(child, path + [child.val])
+        else:
+            # print(f"Leaf node {node.val} with path {path}")
+            self.global_count += 1
+            if (self.global_count % 100000) == 0:
+                print(self.global_count)
+
+    def node_count_from2(self, node, path):
         # print(f"node_count_from {node.val}")
         if len(node.nodes) > 0:
             count = 0
             for nodeval in node.nodes.keys():
                 child = node.nodes[nodeval]
-                print(f"Traversing {node.val} -> {child.val} ...")
+                # print(f"Traversing {node.val} -> {child.val} ...")
                 count += self.node_count_from(child, path + [child.val])
             return count
         else:

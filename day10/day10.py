@@ -36,7 +36,7 @@ class Day10:
     def solve_part2(self):
         adapters = sorted(self.adapters)
         print(adapters)
-        # adapters = adapters + [adapters[-1] + 3]
+        adapters = [0] + adapters
 
         combinations = self.find_combos(adapters)
         # print(f"Combinations: {combinations}")
@@ -45,6 +45,7 @@ class Day10:
         # Sample2 expects 19208
 
     def find_combos(self, adapters):
+        print(f"len(adapters): {len(adapters)}")
         tree = AdapterTree(adapters)
         tree.print_tree()
         tree.traverse_tree()

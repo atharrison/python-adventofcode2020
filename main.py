@@ -13,9 +13,9 @@ from fileutils import file_as_list
 
 def main():
     day = "10"
-    # data = file_as_list(f"day{day}/day{day}input.txt")
+    data = file_as_list(f"day{day}/day{day}input.txt")
     # data = file_as_list(f"day{day}/day{day}input_sample.txt")
-    data = file_as_list(f"day{day}/day{day}input_sample2.txt")
+    # data = file_as_list(f"day{day}/day{day}input_sample2.txt")
 
     runner = day10.Day10(data)
 
