@@ -50,7 +50,71 @@ class Day10:
         tree.print_tree()
         tree.traverse_tree()
 
-    def find_combos(self, adapters, partial=None):
+    def find_combos(self, adapters):
+        return self.find_combos_recursive(adapters[0], adapters[1:])
+
+    def find_combos_recursive(self, val, tail):
+        # Bah, problem was all the other solutions were caching *every* combo, not just the tail combos.
+        if len(tail) == 0:
+            return 1
+
+        combo = self.cached_combos.get(str(tail))
+        if combo:
+            print(f"Cache hit against {str(tail)} = {combo}")
+            return combo
+        else:
+            count = 0
+            if val + 3 >= tail[0]:
+                portion1 = self.find_combos_recursive(tail[0], tail[1:])
+                self.cached_combos[str(tail[1:])] = portion1
+                count += portion1
+            if len(tail) > 1 and val + 3 >= tail[1]:
+                portion2 = self.find_combos_recursive(tail[1], tail[2:])
+                self.cached_combos[str(tail[2:])] = portion2
+                count += portion2
+            if len(tail) > 2 and val + 3 >= tail[2]:
+                portion3 = self.find_combos_recursive(tail[2], tail[3:])
+                self.cached_combos[str(tail[2:])] = portion3
+                count += portion3
+
+            return count
+
+    def find_combos5(self, adapters, partial=None):
+        if not partial:
+            partial = []
+        combo = self.cached_combos.get(str(partial + adapters))
+        if combo:
+            print(f"Cache hit against {str(partial + adapters)} = {combo}")
+            return combo
+
+        if len(adapters) == 1:
+            local_combos = 1
+            solution = partial + adapters
+            print(f"Found leaf node, caching ")
+            self.solved_combo_set.add(str(partial + adapters))
+        else:
+            local_combos = 0
+            if adapters[0] + 3 >= adapters[1]:
+                partial1 = partial + [adapters[0]]
+                local_combo1 = self.find_combos(adapters[1:], partial1)
+                self.cached_combos[str(partial1 + adapters[1:])] = local_combo1
+                local_combos += local_combo1
+            if len(adapters) > 2 and adapters[0] + 3 >= adapters[2]:
+                partial2 = partial + [adapters[0]]
+                local_combo2 = self.find_combos(adapters[2:], partial2)
+                self.cached_combos[str(partial2 + adapters[2:])] = local_combo2
+                local_combos += local_combo2
+            if len(adapters) > 3 and adapters[0] + 3 >= adapters[3]:
+                partial3 = partial + [adapters[0]]
+                # local_combos += self.find_combos(adapters[3:], partial3)
+                local_combo3 = self.find_combos(adapters[3:], partial3)
+                self.cached_combos[str(partial3 + adapters[3:])] = local_combo3
+                local_combos += local_combo3
+
+        self.cached_combos[str(partial + adapters)] = local_combos
+        return local_combos
+
+    def find_combos4(self, adapters, partial=None):
         if not partial:
             partial = []
         combo = self.cached_combos.get(str(partial + adapters))
