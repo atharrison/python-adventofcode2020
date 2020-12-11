@@ -1,3 +1,6 @@
+from functools import lru_cache
+
+
 class AdapterTree:
     def __init__(self, adapters):
         self.root = AdapterNode(adapters[0])

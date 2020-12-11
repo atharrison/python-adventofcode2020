@@ -39,40 +39,33 @@ class Day10:
         adapters = [0] + adapters
 
         combinations = self.find_combos(adapters)
-        # print(f"Combinations: {combinations}")
+        print(f"Combinations: {combinations}")
         # print(f"Solutions count: {len(self.solved_combo_set)}")
         # Sample1 expects 8
         # Sample2 expects 19208
 
-    def find_combos(self, adapters):
+    def find_combos_tree(self, adapters):
         print(f"len(adapters): {len(adapters)}")
         tree = AdapterTree(adapters)
         tree.print_tree()
         tree.traverse_tree()
 
-    def find_combos4(self, adapters, partial=None):
+    def find_combos(self, adapters, partial=None):
         if not partial:
             partial = []
-        if combo := self.cached_combos.get(str(partial + adapters)):
-            print(f"Cached {partial+adapters} = {combo}")
+        combo = self.cached_combos.get(str(partial + adapters))
+        if combo:
+            # print(f"Cached {partial+adapters} = {combo}")
             return combo
 
         if len(adapters) == 1:
             local_combos = 1
             solution = partial + adapters
             self.solved_combo_set.add(str(solution))
-            print(f"Added {solution}")
+            # print(f"Added {solution}")
 
         else:
             local_combos = 0
-            # if len(partial) == 0:
-            #     if adapters[0] + 1 >= adapters[1]:
-            #         local_combos = self.find_combos(adapters[1:], [adapters[0]])
-            #     if adapters[0] + 2 >= adapters[2]:
-            #         local_combos += self.find_combos(adapters[2:], [adapters[0]])
-            #     if adapters[0] + 3 >= adapters[3]:
-            #         local_combos += self.find_combos(adapters[3:], [adapters[0]])
-            # else:
             if adapters[0] + 3 >= adapters[1]:
                 partial1 = partial + [adapters[0]]
                 local_combos += self.find_combos(adapters[1:], partial1)
@@ -83,14 +76,15 @@ class Day10:
                 partial3 = partial + [adapters[0]]
                 local_combos += self.find_combos(adapters[3:], partial3)
 
-        print(f"Combos for {partial} | {adapters}: {local_combos}")
+        # print(f"Combos for {partial} | {adapters}: {local_combos}")
         self.cached_combos[str(adapters)] = local_combos
         return local_combos
 
     def find_combos3(self, adapters, partial=None):
         if not partial:
             partial = []
-        if combo := self.cached_combos.get(str(partial + adapters)):
+        combo = self.cached_combos.get(str(partial + adapters))
+        if combo:
             print(f"Cached {partial+adapters} = {combo}")
             return combo
 
@@ -125,7 +119,8 @@ class Day10:
     def find_combos2(self, adapters, partial=None):
         if not partial:
             partial = []
-        if combo := self.cached_combos.get(str(partial + adapters)):
+        combo = self.cached_combos.get(str(partial + adapters))
+        if combo:
             print(f"Cached {partial+adapters} = {combo}")
             # solution = partial + adapters
             # self.solved_combo_set.add(str(solution))
@@ -154,7 +149,8 @@ class Day10:
         return local_combos
 
     def find_combos1(self, adapters):
-        if combo := self.cached_combos.get(str(adapters)):
+        combo = self.cached_combos.get(str(adapters))
+        if combo:
             print(f"Cached {adapters} = {combo}")
             return combo
 
