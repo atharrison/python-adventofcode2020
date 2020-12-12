@@ -81,4 +81,78 @@ class Day12:
             return 0, 1
 
     def solve_part2(self):
-        pass
+        x = 0
+        y = 0
+        # dir_x = 1
+        # dir_y = 0
+        mag_x = 10
+        mag_y = 1
+
+        for line in self.raw_data:
+            print(line)
+            magnitude = int(line[1:])
+            d = line[0]
+            print(f"line -> {d}:{magnitude}")
+            if d == "F":
+                movecount = magnitude
+                print(f"Forward moving dist {mag_x, mag_y} {movecount} times")
+                for m in range(movecount):
+                    x += mag_x
+                    y += mag_y
+
+            # Convert counter-clockwise to clockwise rotation
+            if d == "L":
+                d = "R"
+                if magnitude == 90:
+                    magnitude = 270
+                elif magnitude == 270:
+                    magnitude = 90
+
+            if d == "R":
+                if magnitude == 180:
+                    # Swap both signs and magnitudes
+                    (mag_x, mag_y) = (-mag_x, -mag_y)
+                else:
+                    num_rotations = magnitude // 90
+                    for _ in range(num_rotations):
+                        mag_x, mag_y = self.rotate_magnitutes_90_clockwise(mag_x, mag_y)
+
+            if d == "E":
+                mag_x += magnitude
+            if d == "W":
+                mag_x -= magnitude
+            if d == "N":
+                mag_y += magnitude
+            if d == "S":
+                mag_y -= magnitude
+            print(
+                f"Moved to {x, y} using {d} and {magnitude}. Waypoint dist {mag_x, mag_y}"
+            )
+
+        print(f"Final x,y: {x, y}. Distance: {abs(x)+abs(y)}")
+
+    def rotate_magnitutes_90_clockwise(self, x, y):
+        # import pdb
+
+        # pdb.set_trace()
+        if x > 0:
+            if y > 0:
+                return y, -x
+            elif y < 0:
+                return y, -x
+            else:
+                return 0, -x
+        elif x < 0:
+            if y > 0:
+                return y, -x
+            if y < 0:
+                return y, -x
+            else:
+                return 0, -x
+        else:
+            if y > 0:
+                return -y, 0
+            if y < 0:
+                return -y, 0
+            else:
+                return 0, 0
