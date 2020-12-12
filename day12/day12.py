@@ -132,9 +132,12 @@ class Day12:
         print(f"Final x,y: {x, y}. Distance: {abs(x)+abs(y)}")
 
     def rotate_magnitutes_90_clockwise(self, x, y):
-        # import pdb
+        # Crazy how this rotation compresses to this logic
+        if x == 0:
+            return -y, 0
+        return y, -x
 
-        # pdb.set_trace()
+    def rotate_magnitutes_90_clockwise_orig(self, x, y):
         if x > 0:
             if y > 0:
                 return y, -x
