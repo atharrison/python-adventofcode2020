@@ -33,8 +33,8 @@ class Expression(ExpressionItem):
             item = self.items[idx]
             if item.is_operator() and item.op == "+":
                 left = self.items[idx - 1]
-                if left.is_expression():
-                    left.regroup()
+                # if left.is_expression():
+                #     left.regroup()
                 right = self.items[idx + 1]
                 if right.is_expression():
                     right.regroup()
