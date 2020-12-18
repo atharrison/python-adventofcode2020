@@ -15,6 +15,7 @@ class Expression(ExpressionItem):
 
     def add(self, item):
         self.items.append(item)
+        return self
 
     def is_expression(self):
         return True
@@ -24,6 +25,29 @@ class Expression(ExpressionItem):
 
     def __repr__(self):
         return self.__str__()
+
+    def regroup(self):
+        print("Regrouping...")
+        idx = 0
+        while idx < len(self.items):
+            item = self.items[idx]
+            if item.is_operator() and item.op == "+":
+                left = self.items[idx - 1]
+                if left.is_expression():
+                    left.regroup()
+                right = self.items[idx + 1]
+                if right.is_expression():
+                    right.regroup()
+                new_exp = Expression()
+                new_exp.add(left).add(item).add(right)
+                del self.items[idx - 1 : idx + 1]
+                self.items[idx - 1] = new_exp
+                idx -= 1
+            elif item.is_expression():
+                item.regroup()
+
+            idx += 1
+        print(f"Regrouped to {self}")
 
     def evaluate(self):
         partial = None
@@ -97,11 +121,17 @@ class EqualPrecedenceInterpreter:
         exp = self.build_expression(line)
         return exp.evaluate()
 
+    def regroup_solve(self, line):
+        print(line)
+        exp = self.build_expression(line)
+        exp.regroup()
+        return exp.evaluate()
+
     def build_expression(self, line):
         exp = Expression()
         idx = 0
         while idx < len(line):
-            print(f"Looking at idx.{idx}=>{line[idx]}")
+            # print(f"Looking at idx.{idx}=>{line[idx]}")
             c = line[idx]
             if c == " ":
                 idx += 1
@@ -115,9 +145,9 @@ class EqualPrecedenceInterpreter:
             elif c == "(":
                 start = idx + 1
                 end = start + self.find_group(line[start:])
-                print(
-                    f"Grouping found: idx.{idx}=> start={start}, end={end} => {line[start:end]}"
-                )
+                # print(
+                #     f"Grouping found: idx.{idx}=> start={start}, end={end} => {line[start:end]}"
+                # )
                 exp.add(self.build_expression(line[start:end]))
                 idx = end + 1
             elif c == ")":
