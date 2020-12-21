@@ -24,19 +24,12 @@ class Day21:
 
         for allergy, a in self.allergen_map.items():
             print(allergy)
-        #     if len(food.possible_allergens) == 0:
-        #         print(f"---> food {food} has no allergens")
-        #         no_allergens_count += food.seen
-        #         no_allergens_food.add(food.name)
 
-        # print(f"Total non-allergens: {no_allergens_count} from {no_allergens_food}")
-
-        made_new_determination = False
         loop_count = 0
         while len(self.determined_allergen_map) != len(self.allergen_map):
             loop_count += 1
             print(f"--> Looping over Allergens Time {loop_count}...")
-            made_new_determination = self.determine_allergens()
+            self.determine_allergens()
 
         for _, a in self.allergen_map.items():
             if a.determined_allergy_ingredient:
@@ -142,8 +135,3 @@ class Day21:
                 else:
                     a = Allergen(allergy, food_number, ingredients)
                     self.allergen_map[allergy] = a
-
-    def list_union(self, l1, l2):
-        final = [item for item in l1 if item in l2]
-        print(f"Union of {l1} and {l2} is {final}")
-        return final
