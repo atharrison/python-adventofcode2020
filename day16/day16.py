@@ -167,9 +167,6 @@ class Day16:
         seat: 13-40 or 45-50
         """
         ticket_data = ticket_type_pattern.match(line)
-        # import pdb
-
-        # pdb.set_trace()
         self.ticket_types[ticket_data[1]] = (
             (int(ticket_data[2]), int(ticket_data[3])),
             (int(ticket_data[4]), int(ticket_data[5])),
