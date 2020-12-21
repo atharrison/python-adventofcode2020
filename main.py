@@ -15,16 +15,17 @@ from day16 import day16
 from day17 import day17
 from day18 import day18
 from day20 import day20
+from day21 import day21
 from fileutils import file_as_list
 
 
 def main():
-    day = "20"
+    day = "21"
     data = file_as_list(f"day{day}/day{day}input.txt")
     # data = file_as_list(f"day{day}/day{day}input_sample.txt")
     # data = file_as_list(f"day{day}/day{day}input_sample2.txt")
 
-    runner = day20.Day20(data)
+    runner = day21.Day21(data)
 
     print(f"Day {day} Part 1")
     runner.solve_part1()
