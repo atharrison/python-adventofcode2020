@@ -28,8 +28,8 @@ def main():
 
     runner = day22.Day22(data)
 
-    print(f"Day {day} Part 1")
-    runner.solve_part1()
+    # print(f"Day {day} Part 1")
+    # runner.solve_part1()
 
     print(f"Day {day} Part 2")
     runner.solve_part2()
