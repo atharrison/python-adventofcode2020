@@ -1,17 +1,15 @@
+from day13.schedule import BusSchedule
+
+
 class Day13:
     def __init__(self, data):
-        self.raw_data = data
+        self.schedule = BusSchedule(data)
 
     def solve_part1(self):
-        earliest = int(self.raw_data[0])
-        buses = self.raw_data[1].split(',')
-
+        earliest = self.schedule.earliest
         best_bus = None
         min_wait = None
-        for b in buses:
-            if b == 'x':
-                continue
-            bus_id = int(b)
+        for bus_id in self.schedule.get_active_buses():
             wait = bus_id - (earliest % bus_id)
             if wait == bus_id:
                 wait = 0
@@ -23,12 +21,7 @@ class Day13:
         print(f"Best bus: {best_bus}, wait: {min_wait}, answer: {best_bus * min_wait}")
 
     def solve_part2(self):
-        buses = self.raw_data[1].split(',')
-        constraints = []
-        for i, b in enumerate(buses):
-            if b != 'x':
-                constraints.append((int(b), i))
-
+        constraints = self.schedule.get_constraints()
         print(f"Solving for {len(constraints)} bus constraints")
 
         t = 0
