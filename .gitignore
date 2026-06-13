@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# AoC personal puzzle inputs (do not commit)
+**/day*input.txt

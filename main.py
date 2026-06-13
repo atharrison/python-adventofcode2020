@@ -10,6 +10,7 @@ from day09 import day09
 from day10 import day10
 from day11 import day11
 from day12 import day12
+from day13 import day13
 from day15 import day15
 from day16 import day16
 from day17 import day17
@@ -21,15 +22,14 @@ from fileutils import file_as_list
 
 
 def main():
-    day = "22"
-    data = file_as_list(f"day{day}/day{day}input.txt")
-    # data = file_as_list(f"day{day}/day{day}input_sample.txt")
-    # data = file_as_list(f"day{day}/day{day}input_sample2.txt")
+    day = "13"
+    data = file_as_list(f"day{day}/day{day}input_sample.txt")
+    # data = file_as_list(f"day{day}/day{day}input.txt")
 
-    runner = day22.Day22(data)
+    runner = day13.Day13(data)
 
-    # print(f"Day {day} Part 1")
-    # runner.solve_part1()
+    print(f"Day {day} Part 1")
+    runner.solve_part1()
 
     print(f"Day {day} Part 2")
     runner.solve_part2()
